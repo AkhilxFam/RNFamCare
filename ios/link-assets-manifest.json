@@ -2,27 +2,27 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/fonts/Metropolis Bold.otf",
+      "path": "src/assets/fonts/Metropolis Bold.otf",
       "sha1": "335e5e57450f52a95b5bc3cd03d91071ef389c28"
     },
     {
-      "path": "assets/fonts/Metropolis Extra Bold.otf",
+      "path": "src/assets/fonts/Metropolis Extra Bold.otf",
       "sha1": "5ba5282242a60d98632201da852da566f365398e"
     },
     {
-      "path": "assets/fonts/Metropolis Medium.otf",
+      "path": "src/assets/fonts/Metropolis Medium.otf",
       "sha1": "8d5181b06452ce20ac337391dc60b9dd07b083de"
     },
     {
-      "path": "assets/fonts/Metropolis Semi Bold.otf",
+      "path": "src/assets/fonts/Metropolis Semi Bold.otf",
       "sha1": "a312d6e50d8bc33ed5d647343405e7f7dc7bc770"
     },
     {
-      "path": "assets/fonts/Metropolis.otf",
+      "path": "src/assets/fonts/Metropolis.otf",
       "sha1": "4afeac8faf987826562d684e2ab23cdc2ba34eb2"
     },
     {
-      "path": "assets/icons/PhoneCall.svg",
+      "path": "src/assets/icons/PhoneCall.svg",
       "sha1": "e3176ae8fb5342214e6630d7c30e71903ebf6a50"
     }
   ]

@@ -2,6 +2,7 @@
 import type { PropsWithChildren } from 'react';
 import React, { useCallback, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   Linking,
   Image,
@@ -18,14 +19,23 @@ import BottomSheet, {
   BottomSheetBackdrop,
 } from '@gorhom/bottom-sheet';
 
-// Import Component
-import FamButton from '../components/FamButton';
+// Import Design
+import FamButton from '../design/FamButton';
+
+// Import Types
+import { RootStackParamList } from '../App';
+import TicketCarousel from '../components/TicketCarousel';
 
 // Import Assets
 const EmailUs = require('../assets/icons/EmailUs.png');
 const PhoneCall = require('../assets/icons/PhoneCall.png');
 const MessageChatBubbles = require('../assets/icons/MessageChatBubbles.png');
 const ChevronRight = require('../assets/icons/ChevronRight.png');
+
+type FamCareIntroProps = NativeStackScreenProps<
+  RootStackParamList,
+  'FamCareIntro'
+>;
 
 type ActionButtonProps = {
   text: string;
@@ -82,7 +92,7 @@ const BSOption = ({
   );
 };
 
-const FamCareIntro = (): React.JSX.Element => {
+const FamCareIntro = ({ navigation }: FamCareIntroProps): React.JSX.Element => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = ['30%'];
 
@@ -96,6 +106,22 @@ const FamCareIntro = (): React.JSX.Element => {
     ),
     [],
   );
+
+  // Delete Later
+  const ActiveData = {
+    data: [
+      {
+        created_at: 1722596567442,
+        estimated_tat: '2024-07-25T17:47:13+05:30',
+        id: '798aa2a4-0ca0-4869-8bfb-3a7e276bbc09',
+        issue_type: 'Wallet Transactions (N)',
+        status: 'IN_PROGRESS',
+        ticket_id: '4304926',
+      },
+    ],
+    code: 'SUCCESS',
+    message: '',
+  };
 
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
@@ -159,6 +185,7 @@ const FamCareIntro = (): React.JSX.Element => {
             source={require('../assets/images/FamCareIntro.png')}
             style={styles.mainImg}
           />
+          <TicketCarousel />
         </View>
         <View style={styles.bottom}>
           <FamButton
@@ -183,7 +210,7 @@ const FamCareIntro = (): React.JSX.Element => {
             text={'Help requests history'}
             subText={'Ongoing and resolved'}
             onPress={() => {
-              onActionTrigger('https://expo.io');
+              navigation.navigate('FamCareHistory');
             }}
           />
           <BSOption text={'Known issues'} onPress={onChat} />
