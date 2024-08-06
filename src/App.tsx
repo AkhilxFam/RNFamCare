@@ -9,11 +9,8 @@ import FamCareIntro from './screens/FamCareIntro';
 import FamCareHistory from './screens/FamCareHistory';
 import FamCareTicket from './screens/FamCareTicket';
 
-export type RootStackParamList = {
-  FamCareIntro: undefined;
-  FamCareHistory: undefined;
-  FamCareTicket: { ticketId: string };
-};
+// Import Types
+import { RootStackParamList } from './utils/Interfaces';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

@@ -3,11 +3,8 @@ import React from 'react';
 import type { PropsWithChildren } from 'react';
 import { Image, Pressable, StyleSheet, Text } from 'react-native';
 
-type FamButtonProps = {
-  text: string;
-  icon?: any;
-  onClick: () => void;
-};
+// Import Interfaces
+import { FamButtonProps } from '../utils/Interfaces';
 
 const FamButton = ({
   text,

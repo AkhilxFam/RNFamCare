@@ -6,12 +6,16 @@ import { useNavigation } from '@react-navigation/native';
 // Import Assets
 const Back = require('../assets/icons/Back.png');
 
-const AppBar = () => {
+// Import Interfaces
+import { RightActionInterface } from '../utils/Interfaces';
+
+const AppBar = ({ rightAction }: { rightAction?: RightActionInterface }) => {
   const navigation = useNavigation();
 
   const goBack = () => {
     navigation.goBack();
   };
+
   return (
     <View style={styles.appBar}>
       <Pressable
@@ -20,8 +24,18 @@ const AppBar = () => {
           { backgroundColor: pressed ? 'transparent' : 'transparent' },
           styles.iconContainer,
         ]}>
-        <Image style={styles.backImg} source={Back} />
+        <Image style={styles.icon} source={Back} />
       </Pressable>
+      {rightAction && (
+        <Pressable
+          onPress={rightAction.onPress}
+          style={({ pressed }) => [
+            { backgroundColor: pressed ? 'transparent' : 'transparent' },
+            styles.iconContainer,
+          ]}>
+          <Image style={styles.icon} source={rightAction.icon} />
+        </Pressable>
+      )}
     </View>
   );
 };
@@ -35,6 +49,8 @@ const styles = StyleSheet.create({
     height: 56,
     marginTop: 32,
     padding: 4,
+    justifyContent: 'space-between',
+    width: '100%',
   },
   iconContainer: {
     width: 48,
@@ -42,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backImg: {
+  icon: {
     width: 24,
     height: 24,
     margin: 12,

@@ -2,11 +2,9 @@
 import type { PropsWithChildren } from 'react';
 import React, { useCallback, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
   Linking,
   Image,
-  ImageProps,
   Pressable,
   StatusBar,
   StyleSheet,
@@ -22,8 +20,7 @@ import BottomSheet, {
 // Import Design
 import FamButton from '../design/FamButton';
 
-// Import Types
-import { RootStackParamList } from '../App';
+// Import Components
 import TicketCarousel from '../components/TicketCarousel';
 
 // Import Assets
@@ -32,28 +29,18 @@ const PhoneCall = require('../assets/icons/PhoneCall.png');
 const MessageChatBubbles = require('../assets/icons/MessageChatBubbles.png');
 const ChevronRight = require('../assets/icons/ChevronRight.png');
 
-type FamCareIntroProps = NativeStackScreenProps<
-  RootStackParamList,
-  'FamCareIntro'
->;
+// Import Types
+import {
+  FamCareIntroProps,
+  IntroActionButtonProps,
+  IntroBSOptionProps,
+} from '../utils/Interfaces';
 
-type ActionButtonProps = {
-  text: string;
-  icon?: ImageProps;
-  onPress: () => void;
-};
-
-type BSOptionProps = {
-  text: string;
-  subText?: string;
-  onPress: () => void;
-};
-
-const ActionButton = ({
+const IntroActionButton = ({
   text,
   icon,
   onPress,
-}: PropsWithChildren<ActionButtonProps>): React.JSX.Element => {
+}: PropsWithChildren<IntroActionButtonProps>): React.JSX.Element => {
   return (
     <Pressable
       onPress={onPress}
@@ -73,7 +60,7 @@ const BSOption = ({
   text,
   subText,
   onPress,
-}: PropsWithChildren<BSOptionProps>) => {
+}: PropsWithChildren<IntroBSOptionProps>) => {
   return (
     <Pressable
       onPress={onPress}
@@ -106,22 +93,6 @@ const FamCareIntro = ({ navigation }: FamCareIntroProps): React.JSX.Element => {
     ),
     [],
   );
-
-  // Delete Later
-  const ActiveData = {
-    data: [
-      {
-        created_at: 1722596567442,
-        estimated_tat: '2024-07-25T17:47:13+05:30',
-        id: '798aa2a4-0ca0-4869-8bfb-3a7e276bbc09',
-        issue_type: 'Wallet Transactions (N)',
-        status: 'IN_PROGRESS',
-        ticket_id: '4304926',
-      },
-    ],
-    code: 'SUCCESS',
-    message: '',
-  };
 
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
@@ -160,21 +131,21 @@ const FamCareIntro = ({ navigation }: FamCareIntroProps): React.JSX.Element => {
         </View>
         <View style={styles.center}>
           <View style={styles.actionButtons}>
-            <ActionButton
+            <IntroActionButton
               text={'Call us'}
               icon={PhoneCall}
               onPress={() => {
                 onActionTrigger('tel:+1234567890');
               }}
             />
-            <ActionButton
+            <IntroActionButton
               text={'Email us'}
               icon={EmailUs}
               onPress={() => {
                 onActionTrigger('mailto:support@expo.io');
               }}
             />
-            <ActionButton
+            <IntroActionButton
               text={'More'}
               onPress={() => {
                 bottomSheetRef.current?.expand();

@@ -1,14 +1,7 @@
 // Import Modules
 import React from 'react';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ImageProps,
-} from 'react-native';
+import { Pressable, StyleSheet, Text, View, Image } from 'react-native';
 
 // Import Assets
 const ChevronRight = require('../assets/icons/ChevronRight.png');
@@ -17,18 +10,12 @@ const ChevronRight = require('../assets/icons/ChevronRight.png');
 import { formatDateWithTime } from '../utils/HelperFunctions';
 
 // Import Types
-import { RootStackParamList } from '../App';
-
-type ResolvedTicketProps = {
-  closed_at: string;
-  created_at: number;
-  id: string;
-  issue_type: string;
-  ticket_id: string;
-};
+import {
+  RootStackParamList,
+  ResolvedTicketProps,
+} from '../utils/Interfaces.ts';
 
 const ResolvedTicketCard = ({ ticket }: { ticket: ResolvedTicketProps }) => {
-  console.log(ticket);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
@@ -62,6 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 14,
+    paddingHorizontal: 20,
   },
   issueText: {
     fontSize: 16,

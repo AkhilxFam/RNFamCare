@@ -1,49 +1,25 @@
-import * as React from 'react';
+// Import Modules
+import React from 'react';
 import { useSharedValue } from 'react-native-reanimated';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import Carousel, {
   ICarouselInstance,
   Pagination,
 } from 'react-native-reanimated-carousel';
+
+// Import Components
 import TicketCard from './TicketCard';
 
-const ActiveData = {
-  data: [
-    {
-      created_at: 1722596567442,
-      estimated_tat: '2024-07-25T17:47:13+05:30',
-      id: '798aa2a4-0ca0-4869-8bfb-3a7e276bbc09',
-      issue_type: 'Wallet Transactions (N)',
-      status: 'IN_PROGRESS',
-      ticket_id: '4304926',
-    },
-    {
-      created_at: 1722596567442,
-      estimated_tat: '2024-07-25T17:47:13+05:30',
-      id: '798aa2a4-0ca0-4869-8bfb-3a7e276bbc09',
-      issue_type: 'Wallet Transactions (N)',
-      status: 'IN_PROGRESS',
-      ticket_id: '4304926',
-    },
-  ],
-  code: 'SUCCESS',
-  message: '',
-};
+// Import Data
+import { ActiveTicketsData } from '../utils/FakeData';
 
-function Index() {
+const TicketCarousel = () => {
   const progress = useSharedValue<number>(0);
 
   const ref = React.useRef<ICarouselInstance>(null);
 
   const onPressPagination = (index: number) => {
-    ref.current?.scrollTo({
-      /**
-       * Calculate the difference between the current index and the target index
-       * to ensure that the carousel scrolls to the nearest index
-       */
-      count: index - progress.value,
-      animated: true,
-    });
+    ref.current?.scrollTo({ count: index - progress.value, animated: true });
   };
 
   return (
@@ -66,27 +42,29 @@ function Index() {
           parallaxScrollingScale: 0.9,
           parallaxScrollingOffset: 50,
         }}
-        data={ActiveData.data}
+        data={ActiveTicketsData.data}
         renderItem={({ index, item }) => (
           <TicketCard
             key={index}
             ticket={item}
-            hideChevron={ActiveData.data.length > 1}
+            hideChevron={ActiveTicketsData.data.length > 1}
           />
         )}
       />
 
-      <Pagination.Basic
-        progress={progress}
-        data={ActiveData.data}
-        dotStyle={styles.dotStyle}
-        activeDotStyle={styles.activeDotStyle}
-        containerStyle={styles.containerStyle}
-        onPress={onPressPagination}
-      />
+      {ActiveTicketsData.data.length > 1 && (
+        <Pagination.Basic
+          progress={progress}
+          data={ActiveTicketsData.data}
+          dotStyle={styles.dotStyle}
+          activeDotStyle={styles.activeDotStyle}
+          containerStyle={styles.containerStyle}
+          onPress={onPressPagination}
+        />
+      )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   carouselContainer: {
@@ -108,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Index;
+export default TicketCarousel;

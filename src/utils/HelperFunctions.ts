@@ -1,4 +1,4 @@
-export const formatDate = (dateString: string) => {
+export const formatDate = (dateString: string | number) => {
   // Parse the date string into a Date object
   const date = new Date(dateString);
 
@@ -11,7 +11,7 @@ export const formatDate = (dateString: string) => {
   return formattedDate;
 };
 
-export const formatDateWithTime = (dateString: string) => {
+export const formatDateWithTime = (dateString: string | number) => {
   const date = new Date(dateString);
 
   const hours = date.getHours();

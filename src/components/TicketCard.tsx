@@ -2,8 +2,8 @@
 import React from 'react';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import {
+  Dimensions,
   Image,
-  ImageProps,
   Pressable,
   StyleSheet,
   Text,
@@ -20,25 +20,15 @@ const ActionNeeded = require('../assets/icons/ActionNeeded.png');
 import { formatDate } from '../utils/HelperFunctions';
 
 // Import Types
-import { RootStackParamList } from '../App';
-
-type TicketCardProps = {
-  created_at: number;
-  estimated_tat: string;
-  id: string;
-  issue_type: string;
-  status: string;
-  ticket_id: string;
-};
+import { RootStackParamList, TicketCardProps } from '../utils/Interfaces';
 
 const TicketCard = ({
   ticket,
   hideChevron,
 }: {
   ticket: TicketCardProps;
-  hideChevron: boolean;
+  hideChevron?: boolean;
 }) => {
-  console.log(ticket);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const statuses = {
@@ -57,38 +47,44 @@ const TicketCard = ({
   };
 
   return (
-    <Pressable
-      key={ticket.id}
-      onPress={() => {
-        navigation.navigate('FamCareTicket', {
-          ticketId: ticket.id,
-        });
-      }}
-      style={({ pressed }) => [
-        {
-          backgroundColor: pressed ? '#f0f0f01a' : 'transparent',
-          paddingBottom: hideChevron ? 28 : 16,
-          marginHorizontal: hideChevron ? 16 : 0,
-        },
-        styles.ticketCard,
-      ]}>
-      <Image style={styles.image} source={statuses[ticket.status].icon} />
-      <View>
-        <Text style={styles.resolveText}>
-          Should be resolved by {formatDate(ticket.estimated_tat)}
-        </Text>
-        <Text numberOfLines={1} style={styles.statusText}>
-          {statuses[ticket.status].text}
-        </Text>
-      </View>
-      {!hideChevron && <Image style={styles.chevron} source={ChevronRight} />}
-    </Pressable>
+    <View style={styles.ticketCardContainer}>
+      <Pressable
+        key={ticket.id}
+        onPress={() => {
+          navigation.navigate('FamCareTicket', {
+            ticketId: ticket.id,
+          });
+        }}
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed ? '#f0f0f01a' : 'transparent',
+            paddingBottom: hideChevron ? 28 : 16,
+            width: Dimensions.get('window').width - 40,
+          },
+          styles.ticketCard,
+        ]}>
+        <Image style={styles.image} source={statuses[ticket.status].icon} />
+        <View>
+          <Text style={styles.resolveText}>
+            Should be resolved by {formatDate(ticket.estimated_tat)}
+          </Text>
+          <Text numberOfLines={1} style={styles.statusText}>
+            {statuses[ticket.status].text}
+          </Text>
+        </View>
+        {!hideChevron && <Image style={styles.chevron} source={ChevronRight} />}
+      </Pressable>
+    </View>
   );
 };
 
 export default TicketCard;
 
 const styles = StyleSheet.create({
+  ticketCardContainer: {
+    width: '100%',
+    paddingHorizontal: 20,
+  },
   ticketCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -113,7 +109,7 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     color: 'rgba(255, 255, 255, 0.90)',
     fontFamily: 'Metropolis Bold',
-    maxWidth: 220,
+    maxWidth: Dimensions.get('window').width - 40 - 32 - 40 - 32 - 24,
   },
   chevron: {
     width: 24,
