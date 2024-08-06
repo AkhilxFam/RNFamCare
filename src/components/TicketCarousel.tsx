@@ -5,10 +5,7 @@ import Carousel, {
   ICarouselInstance,
   Pagination,
 } from 'react-native-reanimated-carousel';
-
 import TicketCard from './TicketCard';
-
-/// DELETE LATER
 
 const ActiveData = {
   data: [
@@ -56,8 +53,19 @@ function Index() {
         vertical={false}
         width={Dimensions.get('window').width}
         height={110}
+        style={{
+          width: Dimensions.get('window').width,
+        }}
         loop
+        pagingEnabled={true}
+        snapEnabled={true}
+        autoPlay={false}
+        autoPlayInterval={1500}
         onProgressChange={progress}
+        modeConfig={{
+          parallaxScrollingScale: 0.9,
+          parallaxScrollingOffset: 50,
+        }}
         data={ActiveData.data}
         renderItem={({ index, item }) => (
           <TicketCard
